@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getVehicles } from '@/utils/services';
-import { concatenateAndRemoveSpaces } from '@/utils/general';
 import { Vehicle } from '@/types';
 
 const VehicleList = () => {
@@ -22,10 +21,9 @@ const VehicleList = () => {
             <h1>Vehicle List</h1>
             <ul>
                 {vehicles.map(vehicle => {
-                    const id = concatenateAndRemoveSpaces([vehicle.brand, vehicle.model, `${vehicle.year}`]);
                     return (
-                        <li key={id}>
-                            <Link href={`/vehicles/${id}`}>
+                        <li key={vehicle.id}>
+                            <Link href={`/vehicles/${vehicle.id}`}>
                                 {vehicle.brand} {vehicle.model} {vehicle.year}
                             </Link>
                         </li>
