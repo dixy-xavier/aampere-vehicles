@@ -11,7 +11,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const page = parseInt(req.query.page as string) || 1;
         const limit = parseInt(req.query.limit as string) || 10;
         const sort = req.query.sort === 'true';
-        const filter = req.query.filter as string || '';
+        const filter = (req.query.filter as string || '').toLowerCase();
+
         const vehiclesList = vehiclesData.data.map(({ brand, model, year }: { brand: string, model: string, year: number }) => ({
             brand,
             model,
@@ -20,7 +21,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }));
 
         const filteredVehicles = filter
-            ? vehiclesList.filter(({ brand, model }: Vehicle) => brand.includes(filter) || model.includes(filter))
+            ? vehiclesList.filter(({ brand, model }: Vehicle) => 
+                brand.toLowerCase().includes(filter) || 
+                model.toLowerCase().includes(filter))
             : vehiclesList;
 
         const sortedVehicles = sort
