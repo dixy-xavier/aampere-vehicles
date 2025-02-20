@@ -1,42 +1,9 @@
 'use client';
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
-import { getVehicles } from '@/utils/services';
-import { Vehicle } from '@/types';
-
-const LIMIT = 10;
-
-const useVehicles = (page: number, sort: boolean, filterText: string) => {
-    const [state, setState] = useState({
-        vehicles: [] as Vehicle[],
-        totalPages: 0,
-        loading: true,
-    });
-
-    const fetchVehicles = useCallback(async () => {
-        setState(prevState => ({ ...prevState, loading: true }));
-        const vehiclesData: { count: number; data: Vehicle[] } = await getVehicles({ page, sort, filter: filterText });
-        setState({
-            vehicles: vehiclesData.data,
-            totalPages: Math.ceil(vehiclesData.count / LIMIT),
-            loading: false,
-        });
-    }, [page, sort, filterText]);
-
-    useEffect(() => {
-        fetchVehicles();
-    }, [fetchVehicles]);
-
-    return { ...state, fetchVehicles };
-};
-
-const debounce = (func: Function, wait: number) => {
-    let timeout: NodeJS.Timeout;
-    return function (...args: any[]) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), wait);
-    };
-};
+import { useVehicles } from './hooks';
+import { debounce } from '@/utils/general';
+import { LIMIT } from '@/utils/contants';
 
 const VehicleList = () => {
     const [page, setPage] = useState(1);
@@ -49,6 +16,7 @@ const VehicleList = () => {
     }, []);
 
     const debounceFilter = useMemo(() => debounce((filterText: string) => {
+        setPage(1);
         setFilterText(filterText);
     }, 300), []);
 
@@ -59,7 +27,7 @@ const VehicleList = () => {
     }, [page]);
 
     const loadMore = useCallback(() => {
-        if (page < totalPages) {
+        if (page < totalPages && vehicles.length >= LIMIT) {
             setPage(prevPage => prevPage + 1);
         }
     }, [page, totalPages]);
