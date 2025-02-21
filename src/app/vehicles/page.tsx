@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useVehicleListActions, useVehicles } from './hooks';
+import '@/styles/globals.css';
 
 const VehicleList = () => {
     const [page, setPage] = useState(1);
@@ -37,7 +38,7 @@ const VehicleList = () => {
                     <ul>
                         {vehicles.map(({ id, brand, model, year }) => (
                             <li key={id}>
-                                <Link href={`/vehicles/${id}`}>
+                                <Link href={`/vehicles/${id}`} className='text-3xl text-green-600 p-2'>
                                     {brand} {model} {year}
                                 </Link>
                             </li>
