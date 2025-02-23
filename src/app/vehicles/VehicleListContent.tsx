@@ -11,7 +11,9 @@ const VehicleListContent: React.FC<VehicleListContentProps> = ({
     loadPrevious,
     loadMore,
 }) => {
-return (
+    const hasVehicles = !loading && vehicles.length > 0;
+
+    return (
         <Box>
             <Box>
                 <Input
@@ -20,19 +22,20 @@ return (
                     onChange={handleFilterChange}
                 />
             </Box>
-            {!loading && vehicles.length > 0 && (
+            {hasVehicles && (
                 <Box>
                     <Button onClick={toggleSort}>{sort ? 'Unsort' : 'Sort by brand'}</Button>
                 </Box>
             )}
             <VehicleListTableLayout vehicles={vehicles} />
-            {!loading && vehicles.length > 0 && (
+            {hasVehicles && (
                 <Box>
                     <Button onClick={loadPrevious}>Load previous</Button>
                     <Button onClick={loadMore}>Load more</Button>
                 </Box>
             )}
         </Box>
-    )}
+    );
+};
 
 export default VehicleListContent;
