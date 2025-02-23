@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useState } from 'react';
 import { useVehicleListActions, useVehicles } from './hooks';
-import { Box, Card, CardHeader, Container, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Container, Typography } from '@mui/material';
 import VehicleListContent from './VehicleListContent';
 
 const Vehicles = () => {
@@ -19,27 +19,29 @@ const Vehicles = () => {
     return (
         <Container sx={{ height: "100%" }}>
             <Box display="flex" justifyContent="center" height="100%"> 
-                <Card>
+                <Card sx={{ width: "100%" }}>
                     <CardHeader title="Vehicle List" />
-                    {loading ? (
-                    <Typography>{vehicles.length === 0 ? 'Loading...' : 'Loading more vehicles...'}</Typography>
-                    ) : (
-                        <>
-                            {vehicles.length === 0 ? (
-                            <Typography>No vehicles found</Typography>
-                            ) : (
-                            <VehicleListContent
-                                loading={loading}
-                                sort={sort}
-                                handleFilterChange={handleFilterChange}
-                                toggleSort={toggleSort}
-                                loadPrevious={loadPrevious}
-                                loadMore={loadMore}
-                                vehicles={vehicles}
-                            />
-                            )}
-                        </>
-                    )}
+                    <CardContent>
+                        {loading ? (
+                            <Typography>{vehicles.length === 0 ? 'Loading...' : 'Loading more vehicles...'}</Typography>
+                        ) : (
+                            <>
+                                {vehicles.length === 0 ? (
+                                <Typography>No vehicles found</Typography>
+                                ) : (
+                                <VehicleListContent
+                                    loading={loading}
+                                    sort={sort}
+                                    handleFilterChange={handleFilterChange}
+                                    toggleSort={toggleSort}
+                                    loadPrevious={loadPrevious}
+                                    loadMore={loadMore}
+                                    vehicles={vehicles}
+                                />
+                                )}
+                            </>
+                        )}
+                    </CardContent>
                 </Card>
             </Box>
         </Container>
