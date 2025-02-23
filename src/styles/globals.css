@@ -2,17 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.text-3xl {
-	font-size: 1.875rem;
-	line-height: 2.25rem;
+html, body {
+	/* ↓ Now (almost) all elements display a sans-serif font */
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', sans-serif;
 }
 
-.text-green-600 {
-	--tw-text-opacity: 1;
-	color: rgba(5, 150, 105, var(--tw-text-opacity));
+* {
+	box-sizing: border-box;
 }
-
-.p-2 {
-	padding: 0.5rem;
-}  
-  

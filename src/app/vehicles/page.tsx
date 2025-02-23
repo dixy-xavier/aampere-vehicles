@@ -1,10 +1,10 @@
 'use client';
-import React, { useState, useCallback } from 'react';
-import Link from 'next/link';
+import { useCallback, useState } from 'react';
 import { useVehicleListActions, useVehicles } from './hooks';
-import '@/styles/globals.css';
+import { Box, Card, CardHeader, Container, Typography } from '@mui/material';
+import VehicleListContent from './VehicleListContent';
 
-const VehicleList = () => {
+const Vehicles = () => {
     const [page, setPage] = useState(1);
     const [sort, setSort] = useState(false);
     const [filterText, setFilterText] = useState('');
@@ -15,46 +15,35 @@ const VehicleList = () => {
         const filterText = e.target.value.toLowerCase();
         debounceFilter(filterText);
     }, [debounceFilter]);
-
+    
     return (
-        <div>
-            <h1>Vehicle List</h1>
-            {loading && vehicles.length === 0 ? (
-                <p>Loading...</p>
-            ) : (
-                <div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Filter by brand or model"
-                            onChange={handleFilterChange}
-                        />
-                    </div>
-                    {!loading && vehicles.length > 0 && (
-                        <div>
-                            <button onClick={toggleSort}>{sort ? 'Unsort' : 'Sort by brand'}</button>
-                        </div>
+        <Container sx={{ height: "100%" }}>
+            <Box display="flex" justifyContent="center" height="100%"> 
+                <Card>
+                    <CardHeader title="Vehicle List" />
+                    {loading ? (
+                    <Typography>{vehicles.length === 0 ? 'Loading...' : 'Loading more vehicles...'}</Typography>
+                    ) : (
+                        <>
+                            {vehicles.length === 0 ? (
+                            <Typography>No vehicles found</Typography>
+                            ) : (
+                            <VehicleListContent
+                                loading={loading}
+                                sort={sort}
+                                handleFilterChange={handleFilterChange}
+                                toggleSort={toggleSort}
+                                loadPrevious={loadPrevious}
+                                loadMore={loadMore}
+                                vehicles={vehicles}
+                            />
+                            )}
+                        </>
                     )}
-                    <ul>
-                        {vehicles.map(({ id, brand, model, year }) => (
-                            <li key={id}>
-                                <Link href={`/vehicles/${id}`} className='text-3xl text-green-600 p-2'>
-                                    {brand} {model} {year}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                    {!loading && vehicles.length > 0 && (
-                        <div>
-                            <button onClick={loadPrevious}>Load previous</button>
-                            <button onClick={loadMore}>Load more</button>
-                        </div>
-                    )}
-                </div>
-            )}
-            {!loading && vehicles.length === 0 && <p>No vehicles found</p>}
-        </div>
+                </Card>
+            </Box>
+        </Container>
     );
 };
 
-export default VehicleList;
+export default Vehicles;

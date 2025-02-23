@@ -37,3 +37,13 @@ export const vehicleInitialState: Vehicle = {
     accidents: false,
     accident_description: ''
 };
+
+export interface VehicleListContentProps {
+    sort: boolean;
+    loading: boolean;
+    handleFilterChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    toggleSort: () => void;
+    loadPrevious: () => void;
+    loadMore: () => void;
+    vehicles: Vehicle[];
+}

@@ -1,4 +1,6 @@
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter"
 import StyledRoot from "./StyledRoot"
+import '@/styles/globals.css';
 
 export default function DashboardLayout({
     children,
@@ -7,14 +9,13 @@ export default function DashboardLayout({
 }) {
     return (
         <html lang="en">
+            <head />
             <body>
-                {/* Layout UI */}
-                {/* Place children where you want to render a page or nested layout */}
-                <main>
+                <AppRouterCacheProvider>
                     <StyledRoot>
                         {children}
                     </StyledRoot>
-                </main>
+                </AppRouterCacheProvider>
             </body>
         </html>
     )
