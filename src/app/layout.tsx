@@ -1,3 +1,5 @@
+import StyledRoot from "./StyledRoot"
+
 export default function DashboardLayout({
     children,
 }: {
@@ -8,7 +10,11 @@ export default function DashboardLayout({
             <body>
                 {/* Layout UI */}
                 {/* Place children where you want to render a page or nested layout */}
-                <main>{children}</main>
+                <main>
+                    <StyledRoot>
+                        {children}
+                    </StyledRoot>
+                </main>
             </body>
         </html>
     )
