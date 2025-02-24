@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { getVehicle } from "@/utils/services";
 import { Vehicle, vehicleInitialState } from "@/types";
-import { Box, Breadcrumbs, Card, CardContent, CardHeader, Container, Grid2, ImageList, ImageListItem, Link, Skeleton, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Card, CardContent, CardHeader, Container, Grid2, ImageList, ImageListItem, Link, Skeleton } from "@mui/material";
 import VehicleDetailsContent from "./VehicleDetailsContent";
 import { KEY_STRINGS } from "@/utils/constants";
 
@@ -33,7 +33,7 @@ const VehiclePage = () => {
                     <CardHeader title="Vehicle Details" />
                     <CardContent>
                         <Grid2 container spacing={2}>
-                            <Grid2 size={8}>
+                            <Grid2 size={8} data-testid="vehicle-images">
                                 {vehicle.images.length === 0 ? (
                                     <Skeleton variant="rectangular" height={700} />
                                 ) : (
@@ -51,7 +51,7 @@ const VehiclePage = () => {
                                     </ImageList>
                                 )}
                             </Grid2>
-                            <Grid2 size={4}>
+                            <Grid2 size={4} data-testid="vehicle-details">
                                 {vehicle.id === '' ? (
                                     <Skeleton variant="rounded" height={700} />
                                 ) : (

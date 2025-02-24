@@ -18,7 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             } else res.status(404).json({ error: 'Vehicle not found' });
         }
     } catch (error) {
-        res.status(404).json({ error: 'Vehicle not found' });
+        res.status(404).json({ error, errorMessage: 'Vehicle not found' });
     }
 };
 

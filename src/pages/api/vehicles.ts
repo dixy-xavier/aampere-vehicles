@@ -44,7 +44,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         res.status(200).json({ count: vehiclesData.count, data: paginatedVehicles });
     } catch (error) {
-        res.status(500).json({ error: 'Failed to read data' });
+        res.status(500).json({ error, errorMessage: 'Failed to read data' });
     }
 };
 

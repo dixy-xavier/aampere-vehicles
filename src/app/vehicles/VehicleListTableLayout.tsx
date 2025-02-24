@@ -4,7 +4,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { KEY_STRINGS } from '@/utils/constants';
 
-const VehicleListTableLayout: React.FC<{ vehicles: Vehicle[], sortBy: Function }> = ({ vehicles, sortBy }) => {
+const VehicleListTableLayout: React.FC<{ vehicles: Vehicle[], sortBy: (key: string) => void }> = ({ vehicles, sortBy }) => {
     const router = useRouter();
     const handleClick = useCallback((id: string) => {
         router.push(`/vehicles/${id}`);
@@ -13,7 +13,8 @@ const VehicleListTableLayout: React.FC<{ vehicles: Vehicle[], sortBy: Function }
     const tableRows = useMemo(() => {
         return vehicles.map(({ id, brand, model, year }: Vehicle) => (
             <TableRow 
-                key={id} 
+                key={id}
+                data-testid={`vehicle-row-${id}`}
                 onClick={() => handleClick(id)} 
                 style={{ cursor: 'pointer' }}
                 hover

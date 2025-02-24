@@ -1,4 +1,6 @@
-export const debounce = (func: Function, wait: number) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+export const debounce = (func: (...args: any[]) => void, wait: number) => {
     let timeout: NodeJS.Timeout;
     return function (...args: any[]) {
         clearTimeout(timeout);
