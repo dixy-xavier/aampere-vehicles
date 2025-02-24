@@ -1,9 +1,8 @@
-import { KEY_STRINGS } from '@/utils/contants';
+import { KEY_STRINGS } from '@/utils/constants';
 import { Grid2, Typography } from '@mui/material';
 
-
-const VehicleDetailsContent = ({ titleKey, value }: { titleKey: keyof typeof KEY_STRINGS; value: string }) => {
-    const textValue = typeof value === 'boolean' ? value ? 'Yes' : 'No' : value;
+const VehicleDetailsContent = ({ titleKey, value }: { titleKey: keyof typeof KEY_STRINGS; value: string | boolean }) => {
+    const textValue = value === true ? 'Yes' : value === false ? 'No' : value;
     return (
         <Grid2 container spacing={1} sx={{ py: 1 }}>
             <Grid2 size={6}>

@@ -1,5 +1,5 @@
 import { Vehicle } from "@/types";
-import { LIMIT } from "@/utils/contants";
+import { LIMIT } from "@/utils/constants";
 import { debounce } from "@/utils/general";
 import { getVehicles } from "@/utils/services";
 import { useCallback, useEffect, useMemo, useState } from "react";
