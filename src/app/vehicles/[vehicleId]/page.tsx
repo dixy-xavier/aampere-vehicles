@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { getVehicle } from "@/utils/services";
 import { Vehicle, vehicleInitialState } from "@/types";
-import { Box, Card, CardContent, CardHeader, Container, Grid2, ImageList, ImageListItem, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Card, CardContent, CardHeader, Container, Grid2, ImageList, ImageListItem, Link, Typography } from "@mui/material";
 import VehicleDetailsContent from "./VehicleDetailsContent";
 import { KEY_STRINGS } from "@/utils/constants";
 
@@ -25,6 +25,11 @@ const VehiclePage = () => {
         <Container sx={{ height: "100%" }}>
             <Box display="flex" justifyContent="center" height="100%"> 
                 <Card sx={{ width: "100%" }}>
+                    <Breadcrumbs aria-label="breadcrumb" sx={{ p: 2 }}>
+                        <Link underline="hover" color="inherit" href="/vehicles">
+                            Go back to vehicle list
+                        </Link>
+                    </Breadcrumbs>
                     <CardHeader title="Vehicle Details" />
                     <CardContent>
                         <Grid2 container spacing={2}>
