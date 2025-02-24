@@ -1,8 +1,5 @@
-'use client';
 import { ThemeProvider } from '@mui/material/styles';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-
-
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ReactNode } from 'react';
 import theme from '@/theme';
 

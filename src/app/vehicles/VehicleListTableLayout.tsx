@@ -2,6 +2,7 @@ import { Vehicle } from '@/types';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { KEY_STRINGS } from '@/utils/contants';
 
 const VehicleListTableLayout: React.FC<{ vehicles: Vehicle[] }> = ({ vehicles }) => {
     const router = useRouter();
@@ -14,9 +15,9 @@ const VehicleListTableLayout: React.FC<{ vehicles: Vehicle[] }> = ({ vehicles })
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Make</TableCell>
-                        <TableCell>Model</TableCell>
-                        <TableCell>Year</TableCell>
+                        <TableCell>{KEY_STRINGS.brand}</TableCell>
+                        <TableCell>{KEY_STRINGS.model}</TableCell>
+                        <TableCell>{KEY_STRINGS.year}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

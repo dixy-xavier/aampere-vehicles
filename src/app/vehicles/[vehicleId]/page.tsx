@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getVehicle } from "@/utils/services";
 import { Vehicle, vehicleInitialState } from "@/types";
+import { Box, Card, CardContent, CardHeader, Container, Grid2, ImageList, ImageListItem } from "@mui/material";
+import VehicleDetailsContent from "./VehicleDetailsContent";
+import { KEY_STRINGS } from "@/utils/contants";
 
 const VehiclePage = () => {
     const [vehicle, setVehicle] = useState<Vehicle>(vehicleInitialState);
@@ -19,25 +22,40 @@ const VehiclePage = () => {
     }, [vehicleId]);
 
     return (
-        <div>
-            <h1>Vehicle ID: {vehicleId}</h1>
-            <div>Brand: {vehicle.brand}</div>
-            <div>Model: {vehicle.model}</div>
-            <div>Year: {vehicle.year}</div>
-            <div>Price: {vehicle.price}</div>
-            <div>Range: {vehicle.range}</div>
-            <div>Color: {vehicle.color}</div>
-            <div>Condition: {vehicle.condition}</div>
-            <div>Battery Capacity: {vehicle.battery_capacity_kWh}</div>
-            <div>Charging Speed: {vehicle.charging_speed_kW}</div>
-            <div>Seats: {vehicle.seats}</div>
-            <div>Drivet Rain: {vehicle.drivetrain}</div>
-            <div>Location: {vehicle.location}</div>
-            <div>Autopilot: {vehicle.autopilot}</div>
-            <div>Kilometer: {vehicle.kilometer_count}</div>
-            <div>Accidents: {vehicle.accidents ? 'yes' : 'no'}</div>
-            {vehicle.accident_description ? <div>Brand: {vehicle.accident_description}</div> : null}
-        </div>
+        <Container sx={{ height: "100%" }}>
+            <Box display="flex" justifyContent="center" height="100%"> 
+                <Card sx={{ width: "100%" }}>
+                    <CardHeader title="Vehicle Details" />
+                    <CardContent>
+                        <Grid2 container spacing={2}>
+                            <Grid2 size={8}>
+                                <ImageList sx={{ width: 700, height: 700 }} cols={3} rowHeight={164}>
+                                    {vehicle.images.map((img, index) => (
+                                        <ImageListItem key={img}>
+                                            <img
+                                                srcSet={`${img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                src={`${img}?w=164&h=164&fit=crop&auto=format`}
+                                                alt={`${vehicle.id}-${index}`}
+                                                loading="lazy"
+                                            />
+                                        </ImageListItem>
+                                    ))}
+                                </ImageList>
+                            </Grid2>
+                            <Grid2 size={4}>
+                                <Card>
+                                    <CardContent>
+                                        {Object.entries(vehicle)
+                                            .filter(([key]) => key !== 'id' && key !== 'images')
+                                            .map(([key, value]) => <VehicleDetailsContent key={key} titleKey={key as keyof typeof KEY_STRINGS} value={value} />)}
+                                    </CardContent>
+                                </Card>
+                            </Grid2>
+                        </Grid2>
+                    </CardContent>
+                </Card>
+            </Box>
+        </Container>
     );
 };
 
