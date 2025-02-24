@@ -34,8 +34,7 @@ const Vehicles = () => {
                     <CardContent>
                         {loading ? (
                             <>
-                                <Skeleton variant="text" height={50} />
-                                <Skeleton variant="rounded" height={500} />
+                                <Skeleton variant="rounded" height={600} />
                                 <Skeleton variant="text" height={50} />
                             </>
                         ) : (
