@@ -6,10 +6,10 @@ import VehicleListContent from './VehicleListContent';
 
 const Vehicles = () => {
     const [page, setPage] = useState(1);
-    const [sort, setSort] = useState(false);
+    const [sortKey, setSortKey] = useState('');
     const [filterText, setFilterText] = useState('');
-    const { vehicles, totalPages, loading } = useVehicles(page, sort, filterText);
-    const { toggleSort, debounceFilter, loadPrevious, loadMore } = useVehicleListActions(page, setPage, setSort, setFilterText, totalPages, vehicles);
+    const { vehicles, totalPages, loading } = useVehicles(page, sortKey, filterText);
+    const { debounceFilter, loadPrevious, loadMore } = useVehicleListActions(page, setPage, totalPages, vehicles);
 
     const handleFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const filterText = e.target.value.toLowerCase();
@@ -24,12 +24,14 @@ const Vehicles = () => {
                     <CardHeader title="Vehicle List" />
                     <CardContent>
                         <Input
-                            type="text"
-                            placeholder="Filter by brand or model"
-                            onChange={handleFilterChange}
-                            fullWidth
-                            value={filterText}
-                        />
+                                type="text"
+                                placeholder="Filter by brand or model"
+                                onChange={handleFilterChange}
+                                fullWidth
+                                value={filterText}
+                            />
+                    </CardContent>
+                    <CardContent>
                         {loading ? (
                             <>
                                 <Skeleton variant="text" height={50} />
@@ -43,10 +45,9 @@ const Vehicles = () => {
                                 ) : (
                                 <VehicleListContent
                                     loading={loading}
-                                    sort={sort}
-                                    toggleSort={toggleSort}
                                     loadPrevious={loadPrevious}
                                     loadMore={loadMore}
+                                    sortBy={(sortByKey: string) => { setPage(1); setSortKey(sortByKey) }}
                                     vehicles={vehicles}
                                 />
                                 )}

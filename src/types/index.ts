@@ -41,10 +41,9 @@ export const vehicleInitialState: Vehicle = {
 };
 
 export interface VehicleListContentProps {
-    sort: boolean;
     loading: boolean;
-    toggleSort: () => void;
     loadPrevious: () => void;
     loadMore: () => void;
+    sortBy: (sortKey: string) => void;
     vehicles: Vehicle[];
 }

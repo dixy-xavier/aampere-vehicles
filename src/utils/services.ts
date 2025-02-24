@@ -13,12 +13,12 @@ const getRequest = async <T>(url: string): Promise<T> => {
     }
 };
 
-const getVehicles = async (params: { page?: number; limit?: number; sort?: boolean; filter?: string }) => {
-    const { page, limit, sort, filter } = params;
+const getVehicles = async (params: { page?: number; limit?: number; sortKey?: string; filter?: string }) => {
+    const { page, limit, sortKey, filter } = params;
     const query = new URLSearchParams({ 
         page: (page || 1).toString(), 
         limit: (limit || 10).toString(), 
-        sort: (sort || false).toString(), 
+        sortKey: sortKey || '', 
         filter: filter || '' 
     });
     const response: {

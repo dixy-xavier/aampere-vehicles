@@ -4,7 +4,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { KEY_STRINGS } from '@/utils/constants';
 
-const VehicleListTableLayout: React.FC<{ vehicles: Vehicle[] }> = ({ vehicles }) => {
+const VehicleListTableLayout: React.FC<{ vehicles: Vehicle[], sortBy: Function }> = ({ vehicles, sortBy }) => {
     const router = useRouter();
     const handleClick = useCallback((id: string) => {
         router.push(`/vehicles/${id}`);
@@ -29,10 +29,13 @@ const VehicleListTableLayout: React.FC<{ vehicles: Vehicle[] }> = ({ vehicles })
         <TableContainer component={Paper}>
             <Table>
                 <TableHead>
-                    <TableRow>
-                        <TableCell>{KEY_STRINGS.brand}</TableCell>
-                        <TableCell>{KEY_STRINGS.model}</TableCell>
-                        <TableCell>{KEY_STRINGS.year}</TableCell>
+                    <TableRow
+                        style={{ cursor: 'pointer' }}
+                        hover
+                    >
+                        <TableCell onClick={() => sortBy('brand')}>{KEY_STRINGS.brand}</TableCell>
+                        <TableCell onClick={() => sortBy('model')}>{KEY_STRINGS.model}</TableCell>
+                        <TableCell onClick={() => sortBy('year')}>{KEY_STRINGS.year}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

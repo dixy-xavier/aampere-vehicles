@@ -4,7 +4,7 @@ import { debounce } from "@/utils/general";
 import { getVehicles } from "@/utils/services";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-export const useVehicles = (page: number, sort: boolean, filterText: string) => {
+export const useVehicles = (page: number, sortKey: string, filterText: string) => {
     const [state, setState] = useState({
         vehicles: [] as Vehicle[],
         totalPages: 0,
@@ -13,13 +13,13 @@ export const useVehicles = (page: number, sort: boolean, filterText: string) => 
 
     const fetchVehicles = useCallback(async () => {
         setState(prevState => ({ ...prevState, loading: true }));
-        const vehiclesData: { count: number; data: Vehicle[] } = await getVehicles({ page, sort, filter: filterText });
+        const vehiclesData: { count: number; data: Vehicle[] } = await getVehicles({ page, sortKey, filter: filterText });
         setState({
             vehicles: vehiclesData.data,
             totalPages: Math.ceil(vehiclesData.count / LIMIT),
             loading: false,
         });
-    }, [page, sort, filterText]);
+    }, [page, sortKey, filterText]);
 
     useEffect(() => {
         fetchVehicles();
@@ -31,15 +31,9 @@ export const useVehicles = (page: number, sort: boolean, filterText: string) => 
 export const useVehicleListActions = (
     page: number,
     setPage: React.Dispatch<React.SetStateAction<number>>,
-    setSort: React.Dispatch<React.SetStateAction<boolean>>,
-    setFilterText: React.Dispatch<React.SetStateAction<string>>,
     totalPages: number,
     vehicles: Vehicle[]
 ) => {
-    const toggleSort = useCallback(() => {
-        setSort(prevSort => !prevSort);
-    }, [setSort]);
-
     const debounceFilter = useMemo(() => debounce(() => {
         setPage(1);
     }, 300), [setPage]);
@@ -56,5 +50,5 @@ export const useVehicleListActions = (
         }
     }, [page, totalPages, vehicles.length, setPage]);
 
-    return { toggleSort, debounceFilter, loadPrevious, loadMore };
+    return { debounceFilter, loadPrevious, loadMore };
 };
