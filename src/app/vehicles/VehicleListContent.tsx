@@ -1,11 +1,10 @@
 import { VehicleListContentProps } from "@/types";
-import { Box, Button, Input } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import VehicleListTableLayout from "./VehicleListTableLayout";
 
 const VehicleListContent: React.FC<VehicleListContentProps> = ({
     vehicles,
     loading,
-    handleFilterChange,
     toggleSort,
     sort,
     loadPrevious,
@@ -15,12 +14,6 @@ const VehicleListContent: React.FC<VehicleListContentProps> = ({
 
     return (
         <Box>
-            <Input
-                type="text"
-                placeholder="Filter by brand or model"
-                onChange={handleFilterChange}
-                fullWidth
-            />
             {hasVehicles && (
                 <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                     <Button onClick={toggleSort}>{sort ? 'Unsort' : 'Sort by brand'}</Button>

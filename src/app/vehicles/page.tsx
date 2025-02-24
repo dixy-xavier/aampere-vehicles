@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useState } from 'react';
 import { useVehicleListActions, useVehicles } from './hooks';
-import { Box, Card, CardContent, CardHeader, Container, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Container, Input, Skeleton, Typography } from '@mui/material';
 import VehicleListContent from './VehicleListContent';
 
 const Vehicles = () => {
@@ -13,6 +13,7 @@ const Vehicles = () => {
 
     const handleFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const filterText = e.target.value.toLowerCase();
+        setFilterText(filterText);
         debounceFilter(filterText);
     }, [debounceFilter]);
     
@@ -22,8 +23,19 @@ const Vehicles = () => {
                 <Card sx={{ width: "100%" }}>
                     <CardHeader title="Vehicle List" />
                     <CardContent>
+                        <Input
+                            type="text"
+                            placeholder="Filter by brand or model"
+                            onChange={handleFilterChange}
+                            fullWidth
+                            value={filterText}
+                        />
                         {loading ? (
-                            <Typography>{vehicles.length === 0 ? 'Loading...' : 'Loading more vehicles...'}</Typography>
+                            <>
+                                <Skeleton variant="text" height={50} />
+                                <Skeleton variant="rounded" height={500} />
+                                <Skeleton variant="text" height={50} />
+                            </>
                         ) : (
                             <>
                                 {vehicles.length === 0 ? (
@@ -32,7 +44,6 @@ const Vehicles = () => {
                                 <VehicleListContent
                                     loading={loading}
                                     sort={sort}
-                                    handleFilterChange={handleFilterChange}
                                     toggleSort={toggleSort}
                                     loadPrevious={loadPrevious}
                                     loadMore={loadMore}

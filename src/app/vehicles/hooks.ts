@@ -40,10 +40,9 @@ export const useVehicleListActions = (
         setSort(prevSort => !prevSort);
     }, [setSort]);
 
-    const debounceFilter = useMemo(() => debounce((filterText: string) => {
+    const debounceFilter = useMemo(() => debounce(() => {
         setPage(1);
-        setFilterText(filterText);
-    }, 300), [setPage, setFilterText]);
+    }, 300), [setPage]);
 
     const loadPrevious = useCallback(() => {
         if (page > 1) {
