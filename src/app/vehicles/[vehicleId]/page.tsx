@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { getVehicle } from "@/utils/services";
 import { Vehicle, vehicleInitialState } from "@/types";
-import { Box, Breadcrumbs, Card, CardContent, CardHeader, Container, Grid2, ImageList, ImageListItem, Link, Skeleton } from "@mui/material";
+import { Box, Breadcrumbs, Card, CardContent, CardHeader, Container, Grid2, Link, Skeleton } from "@mui/material";
 import VehicleDetailsContent from "./VehicleDetailsContent";
 import { KEY_STRINGS } from "@/utils/constants";
 import Carousel from "@/components/Carousel";
