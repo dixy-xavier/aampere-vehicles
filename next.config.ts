@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   	/* config options here */
-	output: 'export',
-	basePath: '/aampere-vehicles',
+	// output: 'export',
+	// basePath: '/aampere-vehicles',
 	images: {
 		unoptimized: true,
 		remotePatterns: [
