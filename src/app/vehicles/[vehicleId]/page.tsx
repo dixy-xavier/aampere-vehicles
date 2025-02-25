@@ -6,6 +6,7 @@ import { Vehicle, vehicleInitialState } from "@/types";
 import { Box, Breadcrumbs, Card, CardContent, CardHeader, Container, Grid2, ImageList, ImageListItem, Link, Skeleton } from "@mui/material";
 import VehicleDetailsContent from "./VehicleDetailsContent";
 import { KEY_STRINGS } from "@/utils/constants";
+import Carousel from "@/components/Carousel";
 
 const VehiclePage = () => {
     const [vehicle, setVehicle] = useState<Vehicle>(vehicleInitialState);
@@ -31,27 +32,16 @@ const VehiclePage = () => {
                         </Link>
                     </Breadcrumbs>
                     <CardHeader title="Vehicle Details" />
-                    <CardContent>
-                        <Grid2 container spacing={2}>
-                            <Grid2 size={8} data-testid="vehicle-images">
+                    <CardContent className="vehicle-details-card-container">
+                        <Grid2 container spacing={2} className="vehicle-details-container">
+                            <Grid2 size={8} data-testid="vehicle-images" className="vehicle-details-image-container">
                                 {vehicle.images.length === 0 ? (
                                     <Skeleton variant="rectangular" height={700} />
                                 ) : (
-                                    <ImageList sx={{ height: 700 }} cols={3} rowHeight={164}>
-                                        {vehicle.images.map((img, index) => (
-                                            <ImageListItem key={img}>
-                                                <img
-                                                    srcSet={`${img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                                    src={`${img}?w=164&h=164&fit=crop&auto=format`}
-                                                    alt={`${vehicle.id}-${index}`}
-                                                    loading="lazy"
-                                                />
-                                            </ImageListItem>
-                                        ))}
-                                    </ImageList>
+                                    <Carousel images={vehicle.images} />
                                 )}
                             </Grid2>
-                            <Grid2 size={4} data-testid="vehicle-details">
+                            <Grid2 size={4} data-testid="vehicle-details" className="vehicle-details">
                                 {vehicle.id === '' ? (
                                     <Skeleton variant="rounded" height={700} />
                                 ) : (
